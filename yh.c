@@ -49,9 +49,14 @@ void zz()//转账
 		if (a > money)
 		{
 			printf("您的账户余额不足，请重新进行转账!\n");
+			goto a;
 		}
-		else if(a>0)
-		pinzheng(a, d);
+		else if (a >= 0)
+		{
+			money -= a;
+			pinzheng(a, d);
+			menu();
+		}
 	}
 	else
 	{
@@ -123,8 +128,7 @@ int pinzheng(int x, int d)//打印凭证
 	{
 		if (d == 1)
 		{
-			printf("您在%s成功取款 % d元，您的账户余额为： % d元, 请取走您的现金\n",ctime(&t), x, money - x);
-			money -= x;
+			printf("您在%s成功取款 % d元，您的账户余额为： % d元\n",ctime(&t), x, money );
 		}
 		else if (d == 2)
 		{
@@ -132,7 +136,7 @@ int pinzheng(int x, int d)//打印凭证
 		}
 		else if (d == 3)
 		{
-			printf("您在%s成功向%d账户转账%d元，您的账户余额为: %d元\n",ctime(&t), & zzzh1, x, money - x);
+			printf("您在%s成功向%d账户转账%d元，您的账户余额为: %d元\n",ctime(&t), & zzzh1, x, money );
 		}
 	}
 }
@@ -149,22 +153,27 @@ a:
 	{
 	case 1:
 		c = 100;
+		money -= c;
 		pinzheng(c, d);
 		break;
 	case 2:
 		c = 200;
+		money -= c;
 		pinzheng(c, d);
 		break;
 	case 3:
 		c = 500;
+		money -= c;
 		pinzheng(c, d);
 		break;
 	case 4:
 		c = 1000;
+		money -= c;
 		pinzheng(c, d);
 		break;
 	case 5:
 		c = 2000;
+		money -= c;
 		pinzheng(c, d);
 		break;
 	default:
@@ -182,7 +191,8 @@ a:
 	scanf("%d", &q_money);//输入取款的余额
 	if (q_money <= money)
 	{
-		printf("成功取款%d元，您的账户余额为：%d元,请您取走您的现金\n", q_money, money - q_money);
+		money -= q_money;
+		printf("成功取款%d元，您的账户余额为：%d元,请您取走您的现金\n", q_money, money);
 		pinzheng(q_money, 1);
 	}
 	else
@@ -202,7 +212,7 @@ a:
 void selectmoney()//查询账户余额
 {
 	printf("您的账户余额为:%d元\n", money);
-	menu(select);
+	menu();
 }
 int x_menu(int a)//进行业务选择
 {
@@ -288,7 +298,7 @@ void welcome()//欢迎菜单
 		 {
 			 kaih();
 		 }
-		 else 
+		 else
 		 {
 			 printf("请重新选择!\n");
 			 welcome();
