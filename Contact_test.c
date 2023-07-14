@@ -10,12 +10,12 @@ void menu()
 }
 void test()
 {
-	menu();
 	int input = 0;
 	Contact con;
 	Init_con(&con);//初始化通讯录
 	do
 	{
+		menu();
 		printf("请选择:>\n");
 		scanf("%d", &input);
 		switch (input)

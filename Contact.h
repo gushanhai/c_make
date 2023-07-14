@@ -8,7 +8,7 @@
 #define con_num 100
 #define Peo_name 20
 #define Peo_sex 5
-#define Peo_tele 11
+#define Peo_tele 12
 #define Peo_add 30
 
 typedef struct Peoinfo//联系人信息

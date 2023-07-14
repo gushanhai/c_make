@@ -117,7 +117,7 @@ void Sort_action_name(Contact* pc, int i)//按照姓名进行排序
 	}
 	printf("排序完成\n");
 }
-Sort_action_age(Contact* pc, int sort)
+Sort_action_age(Contact* pc, int sort)//按照年龄进行排序
 {
 	for (int i = 0; i < sort - 1; i++)
 	{
