@@ -135,22 +135,22 @@
 //}
 
 //Ä£ÄâÊµÏÖmemset
-#include<stdio.h>
-#include<string.h>
-#include<assert.h>
-void* my_memset(void* arr, int value, size_t num)
-{
-	char* p = arr;
-	while (num--)
-	{
-		*(char*)arr = value;
-		((char*)arr)++;
-	}
-	return p;
-}
-int main()
-{
-	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
-	printf("%d\n", my_memset(arr, 1, 4));
-	return 0;
-}
+//#include<stdio.h>
+//#include<string.h>
+//#include<assert.h>
+//void* my_memset(void* arr, int value, size_t num)
+//{
+//	char* p = arr;
+//	while (num--)
+//	{
+//		*(char*)arr = value;
+//		((char*)arr)++;
+//	}
+//	return p;
+//}
+//int main()
+//{
+//	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+//	printf("%d\n", my_memset(arr, 1, 4));
+//	return 0;
+//}

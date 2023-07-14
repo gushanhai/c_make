@@ -5,7 +5,7 @@
 #include<string.h>
 #include<assert.h>
 
-#define con_num 100
+#define con_num 5
 #define Peo_name 20
 #define Peo_sex 5
 #define Peo_tele 11
