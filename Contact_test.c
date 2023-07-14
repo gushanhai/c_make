@@ -30,6 +30,7 @@ void test()
 			SearchContact(&con);
 			break;
 		case Modfiy://修改联系人信息
+			ModfiyContact(&con);
 			break;
 		case Show://显示联系人信息
 			ShowContact(&con);

@@ -99,47 +99,104 @@ void SearchContact(const Contact* pc)//查找联系人
 			pc->data[dd].add);
 	}
 }
-void Sort_action(Contact* pc, int i)//未完成
+void Sort_action_name(Contact* pc, int i)//按照姓名进行排序
 {
 	int ret = 0;
 	for (int x = 0; x < pc->con_sz-1; x++)
 	{
 		for (int y = 0; y < pc->con_sz - 1 - x; y++)
 		{
-			ret = memcpy(pc->data[y].name, pc->data[y + 1].name, Peo_name);
-			if (ret == 1)
+			if (strcmp(pc->data[y].name, pc->data[y + 1].name)>0)
 			{
-				Contact x[1] = pc->data[y];
+				Peoinfo x;
+				x = pc->data[y];
 				pc->data[y] = pc->data[y + 1];
-				pc->data[y + 1] = x[1];
+				pc->data[y + 1] = x;
 			}
 		}
 	}
+	printf("排序完成\n");
+}
+Sort_action_age(Contact* pc, int sort)
+{
+	for (int i = 0; i < sort - 1; i++)
+	{
+		for (int j = 0; j < sort - 1 - i; j++)
+		{
+			if (pc->data[j].age > pc->data[j + 1].age)
+			{
+				Peoinfo x = pc->data[j];
+				pc->data[j] = pc->data[j + 1];
+				pc->data[j + 1] = x;
+			}
+		}
+	}
+	printf("排序完成\n");
 }
 
-void SortContact(Contact* pc)//排序（未完成）
+void SortContact(Contact* pc)//排序
 {
 	printf("请选择排序方法:>\n");
 	printf("####    1.name    #####\n");
 	printf("####    2.age     #####\n");
-	printf("####    3.sex     #####\n");
-	printf("####    4.tele    #####\n");
-	printf("####    5.add     #####\n");
 	int sort;
 	scanf("%d", &sort);
 	switch (sort)
 	{
 	case name:
-		
+		Sort_action_name(pc, sort);
 		break;
 	case age:
+		Sort_action_age(pc, sort);
 		break;
-	case sex:
-		break;
-	case tele:
-		break;
-	case add:
-		break;
+	default:
+		printf("选择错误，排序失败\n");
+	}
+}
 
+void ModfiyContact(Contact* pc)//修改联系人信息
+{
+	char fd_name[20];
+	printf("请输入要修改联系人姓名:>\n");
+	scanf("%s", fd_name);
+	int ret = find_name(pc, fd_name);
+	if (ret == -1)
+	{
+		printf("通讯录中没有此人，无法修改\n");
+		return;
+	}
+	else
+	{
+		int input = 0;
+		printf("####    1.name    #####\n");
+		printf("####    2.age     #####\n");
+		printf("####    3.sex     #####\n");
+		printf("####    4.tele    #####\n");
+		printf("####    5.add     #####\n");
+		printf("请输入要修改信息：\n");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case name:
+			printf("请输入联系人姓名：>\n");
+			scanf("%s", pc->data[ret].name);
+			break;
+		case age:
+			printf("请输入联系人年龄：>\n");
+			scanf("%d", &(pc->data[ret].age));
+			break;
+		case sex:
+			printf("请输入联系人性别：>\n");
+			scanf("%s", pc->data[ret].sex);
+			break;
+		case tele:
+			printf("请输入联系人电话号：>\n");
+			scanf("%s", pc->data[ret].tele);
+			break;
+		case add:
+			printf("请输入联系人地址：>\n");
+			scanf("%s", pc->data[ret].add);
+			break;
+		}
 	}
 }

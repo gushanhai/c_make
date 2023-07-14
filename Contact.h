@@ -57,3 +57,5 @@ void DelContact(Contact* pc);//删除通讯录数组中的某个元素
 void SearchContact(const Contact* pc);//查找联系人
 
 void SortContact(Contact* pc);//排序
+
+void ModfiyContact(Contact* con);//修改联系人信息
