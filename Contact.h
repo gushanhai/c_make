@@ -4,12 +4,15 @@
 #include<stdio.h>
 #include<string.h>
 #include<assert.h>
+#include<stdlib.h>
 
-#define con_num 100
+#define con_num 3
 #define Peo_name 20
 #define Peo_sex 5
 #define Peo_tele 12
 #define Peo_add 30
+#define default_sz 3
+#define inc_sz 2
 
 typedef struct Peoinfo//联系人信息
 {
@@ -30,12 +33,20 @@ typedef enum SORT
 	add
 }SORT;
 
+//静态版本
+//typedef struct Contact//通讯录
+//{
+//	Peoinfo data[con_num];//联系人数组
+//	int con_sz;//联系人个数
+//}Contact;
+
+//动态版本
 typedef struct Contact//通讯录
 {
-	Peoinfo data[con_num];//联系人数组
+	Peoinfo* data;//联系人数组
 	int con_sz;//联系人个数
+	int capacticy;
 }Contact;
-
 typedef enum Option
 {
 	Exit,
@@ -58,4 +69,8 @@ void SearchContact(const Contact* pc);//查找联系人
 
 void SortContact(Contact* pc);//排序
 
-void ModfiyContact(Contact* con);//修改联系人信息
+void ModfiyContact(Contact* pc);//修改联系人信息
+
+void SaveContact(Contact* pc);//保存通讯录
+
+void DestroyContact(Contact* pc);//销毁通讯录

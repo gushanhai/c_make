@@ -1,17 +1,103 @@
 #include "Contact.h"
+int Checkcapacticy(Contact* pc);
+//静态版本
+//void Init_con(Contact* pc)//初始化通讯录
+//{
+//	memset(pc->data, 0, sizeof(pc->data));
+//	pc->con_sz = 0;
+//}
 
+//读取通讯录
+void LoadContact(Contact* pc)
+{
+	FILE* pf = (Peoinfo*)fopen("contact.dat", "rb");
+	if (pf == NULL)
+	{
+		ferror("LoadContact");
+		return;
+	}
+	//读文件
+	Peoinfo tmp = { 0 };
+	while (fread(&tmp, sizeof(Peoinfo), 1, pf))
+	{
+		if (Checkcapacticy(pc) == 1)
+			return;
+		pc->data[pc->con_sz] = tmp;
+		pc->con_sz++;
+	}
+
+	//关闭文件
+	fclose(pf);
+	pf = NULL;
+}
+//动态版本
 void Init_con(Contact* pc)//初始化通讯录
 {
-	memset(pc->data, 0, sizeof(pc->data));
+	assert(pc);
+	pc->data = (Peoinfo*)malloc(default_sz * sizeof(Peoinfo));
+	if (pc == NULL)
+	{
+		perror("Init_con");
+		return;
+	}
 	pc->con_sz = 0;
+	pc->capacticy = default_sz;
+	LoadContact(pc);
 }
 
+//void AddConcact(Contact* pc)//增加联系人
+//{
+//	assert(pc);
+//	if (pc->con_sz == con_num)
+//	{
+//		printf("通讯录已满,无法添加联系人\n");
+//		return;
+//	}
+//	printf("请输入联系人姓名：>\n");
+//	scanf("%s", pc->data[pc->con_sz].name);
+//	printf("请输入联系人年龄：>\n");
+//	scanf("%d", &(pc->data[pc->con_sz].age));
+//	printf("请输入联系人性别：>\n");
+//	scanf("%s", pc->data[pc->con_sz].sex);
+//	printf("请输入联系人电话号：>\n");
+//	scanf("%s", pc->data[pc->con_sz].tele);
+//	printf("请输入联系人地址：>\n");
+//	scanf("%s", pc->data[pc->con_sz].add);
+//	pc->con_sz++;
+//	printf("联系人添加成功\n");
+//}
+
+
+//进行增容
+int Checkcapacticy(Contact* pc)
+{
+	if(pc->con_sz==pc->capacticy)
+	{
+		Peoinfo* ptr = (Peoinfo*)realloc(pc->data, (pc->capacticy + inc_sz) * sizeof(Peoinfo));
+		if (pc == NULL)
+		{
+			perror("Checkcapacticy");
+			return 1;
+		}
+		else
+		{
+			pc->data = ptr;
+			pc->capacticy += inc_sz;
+			printf("增容成功\n");
+			return 0;
+		}
+	}
+	return 2;
+}
+
+//动态添加联系人
 void AddConcact(Contact* pc)//增加联系人
 {
 	assert(pc);
-	if (pc->con_sz == con_num)
+	int pd = Checkcapacticy(pc);
+	if (pd==1)
 	{
-		printf("通讯录已满,无法添加联系人\n");
+		printf("增容失败\n");
 		return;
 	}
 	printf("请输入联系人姓名：>\n");
@@ -27,6 +113,7 @@ void AddConcact(Contact* pc)//增加联系人
 	pc->con_sz++;
 	printf("联系人添加成功\n");
 }
+
 
 void ShowContact(const Contact* pc)//显示通讯录中所有联系人
 {
@@ -180,23 +267,57 @@ void ModfiyContact(Contact* pc)//修改联系人信息
 		case name:
 			printf("请输入联系人姓名：>\n");
 			scanf("%s", pc->data[ret].name);
+			printf("修改成功\n");
 			break;
 		case age:
 			printf("请输入联系人年龄：>\n");
 			scanf("%d", &(pc->data[ret].age));
+			printf("修改成功\n");
 			break;
 		case sex:
 			printf("请输入联系人性别：>\n");
 			scanf("%s", pc->data[ret].sex);
+			printf("修改成功\n");
 			break;
 		case tele:
 			printf("请输入联系人电话号：>\n");
 			scanf("%s", pc->data[ret].tele);
+			printf("修改成功\n");
 			break;
 		case add:
 			printf("请输入联系人地址：>\n");
 			scanf("%s", pc->data[ret].add);
+			printf("修改成功\n");
 			break;
 		}
 	}
+}
+
+//销毁通讯录
+void DestroyContact(Contact* pc)
+{
+	free(pc->data);
+	pc->data = NULL;
+	pc->capacticy = 0;
+	pc->con_sz = 0;
+}
+
+void SaveContact(Contact* pc)//保存通讯录
+{
+	FILE* pf = fopen("contact.dat", "wb");
+	if (pf == NULL)
+	{
+		perror("SaveContact");
+		return;
+	}
+
+	//写数据
+	for (int i = 0; i < pc->con_sz; i++)
+	{
+		fwrite(pc->data + i, sizeof(Peoinfo), 1, pf);
+	}
+
+	//关闭文件
+	fclose(pf);
+	pf == NULL;
 }
