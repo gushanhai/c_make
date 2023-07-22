@@ -4,6 +4,29 @@ int find_age(Contact* pc, const char* age);
 int find_tele(Contact* pc, const char* tele);
 int find_addr(Contact* pc, const char* addr);
 
+//读取通讯录
+void LoadContact(Contact* pc)
+{
+	FILE* pf = (Peoinfo*)fopen("contact.dat", "rb");
+	if (pf == NULL)
+	{
+		ferror("LoadContact");
+		return;
+	}
+	//读文件
+	Peoinfo tmp = { 0 };
+	while (fread(&tmp, sizeof(Peoinfo), 1, pf))
+	{
+		if (checkContact(pc) == 1)
+			return;
+		pc->data[pc->con_sz] = tmp;
+		pc->con_sz++;
+	}
+
+	//关闭文件
+	fclose(pf);
+	pf = NULL;
+}
 
 //动态初始化通讯录
 void InitContact(Contact* pc)
@@ -17,7 +40,9 @@ void InitContact(Contact* pc)
 	}
 	pc->con_sz = 0;
 	pc->cap = con_num;
+	LoadContact(pc);
 }
+
 
 //增容
 int checkContact(Contact* pc)
@@ -240,7 +265,7 @@ void ModifyContact(Contact* pc)
 			break;
 		case 2:
 			printf("请输入要修改的年龄:\n");
-			scanf("%d", pc->data[flag].age);
+			scanf("%d", &(pc->data[flag].age));
 			break;
 		case 3:
 			printf("请输入要修改的性别:\n");
@@ -288,4 +313,33 @@ void SortContact(Contact* pc)
 	default:
 		break;
 	}
+}
+
+//销毁通讯录
+void DestroyContact(Contact* pc)
+{
+	free(pc->data);
+	pc->data = NULL;
+	pc->cap = 0;
+	pc->con_sz = 0;
+}
+
+void SaveContact(Contact* pc)//保存通讯录
+{
+	FILE* pf = fopen("contact.dat", "wb");
+	if (pf == NULL)
+	{
+		perror("SaveContact");
+		return;
+	}
+
+	//写数据
+	for (int i = 0; i < pc->con_sz; i++)
+	{
+		fwrite(pc->data + i, sizeof(Peoinfo), 1, pf);
+	}
+
+	//关闭文件
+	fclose(pf);
+	pf == NULL;
 }

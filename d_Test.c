@@ -40,6 +40,8 @@ void test()
 			SortContact(&con);
 			break;
 		case Exit:
+			SaveContact(&con);
+			DestroyContact(&con);
 			break;
 		default:
 			break;

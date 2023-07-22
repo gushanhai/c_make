@@ -66,3 +66,7 @@ void ModifyContact(Contact* pc);
 
 //对联系人进行排序
 void SortContact(Contact* pc);
+
+void SaveContact(Contact* pc);//保存通讯录
+
+void DestroyContact(Contact* pc);//销毁通讯录
