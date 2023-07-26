@@ -33,3 +33,7 @@ void SPrint(SL* ps);//打印
 void SLInsert(SL* ps, int pos, SlDataType x);//在pos位置插入一个x
 
 void SLEarse(SL* ps, int pos); //在pos位置删除一个值
+
+void SLModify(SL* ps, int pos, SlDataType x);//将pos位置处的值修改
+
+int SLFind(SL* ps, SlDataType x);
