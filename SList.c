@@ -22,3 +22,64 @@ SListNode* BuySListNode(SLTDataType x)//³õÊ¼»¯Á´±í
 	newnode->next = NULL;
 	return newnode;
 }
+
+void SLTPushBack(SListNode** pphead, SLTDataType x)//Î²²å
+{
+	SListNode* newnode = BuySListNode(x);
+	if (*pphead == NULL)
+	{
+		*pphead = newnode;
+	}
+	else
+	{
+		SListNode* tail = *pphead;
+	while (tail->next) 
+	{
+		tail = tail->next;
+	}
+	tail->next = newnode;
+	}
+
+}
+
+void SLTPushFront(SListNode** pphead, SLTDataType x)//Í·²å
+{
+	SListNode* tmp = BuySListNode(x);
+	if (tmp == NULL)
+	{
+		perror("malloc fail\n");
+		exit(-1);
+	}
+	tmp->next = *pphead;
+	*pphead = tmp;
+}
+
+void SLTPopBack(SListNode** pphead)//Î²É¾
+{
+	assert(*pphead);
+	if ((*pphead)->next == NULL)
+	{
+		free((*pphead));
+		*pphead = NULL;
+	}
+	else
+	{
+		SListNode* tail = *pphead;
+		while (tail->next->next)
+		{
+			tail = tail->next;
+		}
+		free(tail->next);
+		tail->next = NULL;
+	}
+}
+
+void SLTPopFront(SListNode** pphead)
+{
+	assert(pphead);
+	assert(*pphead);
+	SListNode* tail = *pphead;
+	*pphead = (*pphead)->next;
+	free(tail);
+	tail = NULL;
+}
