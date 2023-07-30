@@ -23,3 +23,13 @@ void SLTPushFront(SListNode** pphead, SLTDataType x);//头插
 void SLTPopBack(SListNode** pphead);//尾删
 
 void SLTPopFront(SListNode** pphead);//头删
+
+SListNode* SLTFind(SListNode* phead, SLTDataType x);//查找
+
+void SLTInsertAfter(SListNode** ppos,SListNode* pos, SLTDataType x);//在pos位置后插入
+
+void SLTInsert(SListNode** pphead, SListNode* pos, SLTDataType x);//在pos位置之前插入
+
+void SLTEarse(SListNode** pphead,SListNode* pos);//删除pos位置
+
+void SLTEarseAfter(SListNode* pos);//删除pos后一个位置

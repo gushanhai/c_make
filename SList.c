@@ -74,7 +74,7 @@ void SLTPopBack(SListNode** pphead)//尾删
 	}
 }
 
-void SLTPopFront(SListNode** pphead)
+void SLTPopFront(SListNode** pphead)//头删
 {
 	assert(pphead);
 	assert(*pphead);
@@ -83,3 +83,65 @@ void SLTPopFront(SListNode** pphead)
 	free(tail);
 	tail = NULL;
 }
+
+SListNode* SLTFind(SListNode* phead, SLTDataType x)//查找
+{
+	SListNode* tail = phead;
+	while (tail)
+	{
+		if (tail->data == x)
+		{
+			return tail;
+		}
+		tail = tail->next;
+	}
+	return NULL;
+}
+
+void SLTInsertAfter(SListNode** ppos, SListNode* pos, SLTDataType x)//在pos位置后插入
+{
+	assert(ppos);
+	if (pos == *ppos)
+	{
+		//头插
+		SListNode* newnode = BuySListNode(x);
+		newnode->next = pos;
+		*ppos = newnode;
+	}
+	SListNode* tail = pos;
+	SListNode* aa = tail->next;
+	SListNode* newnode = BuySListNode(x);
+	tail->next = newnode;
+	newnode->next = aa;
+	tail = NULL;
+	newnode = NULL;
+	aa = NULL;
+}
+
+void SLTInsert(SListNode** pphead, SListNode* pos, SLTDataType x)//在pos位置之前插入
+{
+	assert(pphead);
+	SListNode* phead = *pphead;
+	if (pos == phead)
+	{
+		SListNode* newnode = BuySListNode(x);
+		newnode->next = phead;
+		*pphead = newnode;
+		return;
+	}
+	while (phead)
+	{
+		if (phead->next == pos)
+		{					
+			SListNode* newnode = BuySListNode(x);
+			newnode->next = phead->next;
+			phead->next = newnode;
+			return;
+		}
+		phead = phead->next;
+	}
+}
+
+void SLTEarse(SListNode** pphead, SListNode* pos);//删除pos位置
+
+void SLTEarseAfter(SListNode* pos);//删除pos后一个位置
