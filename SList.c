@@ -25,6 +25,7 @@ SListNode* BuySListNode(SLTDataType x)//³õÊ¼»¯Á´±í
 
 void SLTPushBack(SListNode** pphead, SLTDataType x)//Î²²å
 {
+	assert(pphead);
 	SListNode* newnode = BuySListNode(x);
 	if (*pphead == NULL)
 	{
@@ -44,6 +45,7 @@ void SLTPushBack(SListNode** pphead, SLTDataType x)//Î²²å
 
 void SLTPushFront(SListNode** pphead, SLTDataType x)//Í·²å
 {
+	assert(pphead);
 	SListNode* tmp = BuySListNode(x);
 	if (tmp == NULL)
 	{
@@ -56,7 +58,7 @@ void SLTPushFront(SListNode** pphead, SLTDataType x)//Í·²å
 
 void SLTPopBack(SListNode** pphead)//Î²É¾
 {
-	assert(*pphead);
+	assert(*pphead&&pphead);
 	if ((*pphead)->next == NULL)
 	{
 		free((*pphead));
@@ -76,8 +78,7 @@ void SLTPopBack(SListNode** pphead)//Î²É¾
 
 void SLTPopFront(SListNode** pphead)//Í·É¾
 {
-	assert(pphead);
-	assert(*pphead);
+	assert(pphead&&*pphead);
 	SListNode* tail = *pphead;
 	*pphead = (*pphead)->next;
 	free(tail);
@@ -120,7 +121,7 @@ void SLTInsertAfter(SListNode** ppos, SListNode* pos, SLTDataType x)//ÔÚposÎ»ÖÃº
 
 void SLTInsert(SListNode** pphead, SListNode* pos, SLTDataType x)//ÔÚposÎ»ÖÃÖ®Ç°²åÈë
 {
-	assert(pphead);
+	assert(pphead&&pos);
 	SListNode* phead = *pphead;
 	if (pos == phead)
 	{
@@ -142,6 +143,41 @@ void SLTInsert(SListNode** pphead, SListNode* pos, SLTDataType x)//ÔÚposÎ»ÖÃÖ®Ç°
 	}
 }
 
-void SLTEarse(SListNode** pphead, SListNode* pos);//É¾³ýposÎ»ÖÃ
+void SLTEarse(SListNode** pphead, SListNode* pos)//É¾³ýposÎ»ÖÃ
+{
+	assert(pphead&&pos);
+	SListNode* phead = *pphead;
+	if (pos == phead)
+	{
+		*pphead = phead->next;
+	}
+	else
+	{
+	while (phead)
+	{
+		if (phead->next == pos)
+		{
+		phead->next = pos->next;
+		}
+		phead = phead->next;
+	}
+	}
+	free(phead);
+	phead = NULL;
+}
 
-void SLTEarseAfter(SListNode* pos);//É¾³ýposºóÒ»¸öÎ»ÖÃ
+void SLTEarseAfter(SListNode* pos)//É¾³ýposºóÒ»¸öÎ»ÖÃ
+{
+	assert(pos);
+	if (pos->next == NULL)
+	{
+		return;
+	}
+	else
+	{
+		SListNode* posNext = pos->next;
+		pos->next = pos->next->next;
+		free(posNext);
+		posNext = NULL;
+	}
+}

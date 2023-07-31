@@ -61,11 +61,19 @@ void test3()
 	SLTprint(plist);
 	SListNode* pos = SLTFind(plist, 1);
 	SLTInsert(&plist, pos, 0);
+	pos = NULL;
 	SLTprint(plist);
 	SListNode* pos1 = SLTFind(plist, 1);
-	SLTInsertAfter(&plist, pos1, 0);
+	SLTInsertAfter(&plist, pos1, 50);
+	pos1 = NULL;
 	SLTprint(plist);
-
+	SListNode* pos2 = SLTFind(plist, 50);
+	SLTEarse(&plist, pos2);
+	pos2 = NULL;
+	SLTprint(plist);
+	SListNode* pos3 = SLTFind(plist, 1);
+	SLTEarseAfter(pos3);
+	SLTprint(plist);
 }
 int main() 
 {
