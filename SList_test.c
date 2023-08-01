@@ -74,6 +74,8 @@ void test3()
 	SListNode* pos3 = SLTFind(plist, 1);
 	SLTEarseAfter(pos3);
 	SLTprint(plist);
+	SLTDistry(&plist);
+	SLTprint(plist);
 }
 int main() 
 {

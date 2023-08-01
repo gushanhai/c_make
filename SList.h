@@ -33,3 +33,5 @@ void SLTInsert(SListNode** pphead, SListNode* pos, SLTDataType x);//ÔÚposÎ»ÖÃÖ®Ç
 void SLTEarse(SListNode** pphead,SListNode* pos);//É¾³ıposÎ»ÖÃ
 
 void SLTEarseAfter(SListNode* pos);//É¾³ıposºóÒ»¸öÎ»ÖÃ
+
+void SLTDistry(SListNode** pphead);//Ïú»ÙÁ´±í

@@ -181,3 +181,15 @@ void SLTEarseAfter(SListNode* pos)//删除pos后一个位置
 		posNext = NULL;
 	}
 }
+
+void SLTDistry(SListNode** pphead)//销毁链表
+{
+	SListNode* plist = *pphead;
+	while (plist)
+	{
+		SListNode* next = plist->next;
+		free(plist);
+		plist = next;
+	}
+	*pphead = NULL;
+}
