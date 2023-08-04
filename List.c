@@ -4,9 +4,10 @@ void DLPrint(DL* phead)//打印
 	DL* plist = phead->next;
 	while (plist!= phead)
 	{
-		printf("%d ", plist->var);
+		printf("%d<=>", plist->var);
 		plist = plist->next;
 	}
+	printf("NULL");
 	printf("\n");
 }
 DL* BuyListNode(DLDdatatype x)//申请结点
@@ -108,4 +109,20 @@ int DLSize(DL* phead)//链表长度
 		plist = plist->next;
 	}
 	return sz;
+}
+
+void DLDestion(DL* phead)
+{
+	DL* plist = phead->next;
+	phead->next = phead;
+	phead->perv = phead;
+	DL* cur = NULL;
+	while (plist!=phead)
+	{
+		cur = plist;
+		plist = plist->next;
+		cur->next = cur;
+		cur->perv = cur;
+		free(cur);
+	}
 }

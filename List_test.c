@@ -20,7 +20,9 @@ void test1()
 	DLEarsr(plist, curr);
 	DLPrint(plist);
 	int sz = DLSize(plist);
-	printf("%d", sz);
+	printf("%d\n", sz);
+	DLDestion(plist);
+	DLPrint(plist);
 }
 int main()
 {

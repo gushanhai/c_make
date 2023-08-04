@@ -29,3 +29,4 @@ void DLInsert(DL* phead, DL* pos, DLDdatatype x);//在pos位置插入
 void DLEarsr(DL* phead, DL* pos);//删除pos位置结点
 
 int DLSize(DL* phead);//链表长度
+void DLDestion(DL* phead);
