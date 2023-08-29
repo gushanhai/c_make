@@ -86,3 +86,33 @@
 //    }
 //    return false;
 //}
+//用指针访问二位数组
+/*
+ * 输入 **matrix 是长度为 matrixSize 的数组指针的数组，其中每个元素（也是一个数组）
+ * 的长度组成 *matrixColSize 数组作为另一输入，*matrixColSize 数组的长度也为 matrixSize
+ */
+//bool findNumberIn2DArray(int** matrix, int matrixSize, int* matrixColSize, int target)
+//{
+//    bool a = false;
+//    for (int i = 0; i < matrixSize; i++)
+//    {
+//        int left = 0;
+//        int right = *matrixColSize - 1;
+//        while (left <= right)
+//        {
+//            int mid = (left + right) / 2;
+//            if (*(*(matrix + i) + mid) < target)
+//                left = mid + 1;
+//            else if (*(*(matrix + i) + mid) > target)
+//                right = mid - 1;
+//            else
+//            {
+//                a = true;
+//                break;
+//            }
+//        }
+//        if (a)
+//            return a;
+//    }
+//    return a;
+//}
