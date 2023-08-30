@@ -52,3 +52,30 @@
 //    }
 //    return ret;
 //}
+
+//给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+//    struct ListNode* deleteDuplicates(struct ListNode* head)
+//{
+//    if (head == NULL)
+//        return head;
+//    struct ListNode* tmp = head;
+//    while (tmp->next)
+//    {
+//        struct ListNode* next = tmp->next;
+//        if (tmp->val == next->val)
+//        {
+//            tmp->next = next->next;
+//            //free(next);
+//        }
+//        else
+//            tmp = tmp->next;
+//    }
+//    return head;
+//}
