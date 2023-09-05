@@ -24,8 +24,8 @@
 
 //给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。
 //void reserve(char* s) {
-//    int len = strlen(s);
-//    for (int i = 0; i < len / 2; i++) {
+//    int len = strlen(s);//计算需要翻转字符串的长度
+//    for (int i = 0; i < len / 2; i++) {//进行反转
 //        char t = s[i];
 //        s[i] = s[len - i - 1], s[len - i - 1] = t;
 //    }
@@ -42,18 +42,18 @@
 //    char* ret = (char*)malloc(1 * (max + 2));//动态开辟！*（max+2）的空间
 //    for (int i = 0; i < max; i++)
 //    {
-//        carry += i < len1 ? (a[i] == '1') : 0;//
-//        carry += i < len2 ? (b[i] == '1') : 0;
-//        ret[len++] = carry % 2 + '0';
-//        carry /= 2;
+//        carry += i < len1 ? (a[i] == '1') : 0;//先判断i是否小于len1的长度，如果小于就判断a[i]是否等于'1'，如果等于返回1，如果不等于返回0，如果i>=len1，就返回0；
+//        carry += i < len2 ? (b[i] == '1') : 0;//同理
+//        ret[len++] = carry % 2 + '0';//将carry%2的值赋值给返回字符串
+//        carry /= 2;//如果当前carry==2，那么carry就要进一，如果！=2，那么就是0，不需要进一
 //    }
-//    if (carry)
+//    if (carry)//判断最后一个carry是否为1
 //    {
-//        ret[len++] = '1';
+//        ret[len++] = '1';//如果是一，那么'\0'前一个的字符是‘1’
 //    }
-//    ret[len] = '\0';
-//    reserve(ret);
-//    return ret;
+//    ret[len] = '\0';//将最后一个字置为'\0'
+//    reserve(ret);//翻转需要返回的字符串
+//    return ret;//返回需要返回的字符串
 //}
 
 //给你一个非负整数 x ，计算并返回 x 的 算术平方根 。
