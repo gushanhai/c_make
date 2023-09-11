@@ -23,19 +23,53 @@ void Swap(HeapDataType* a1, HeapDataType* a2)//交换函数
 	*a2 = tmp;
 }
 
+//void Adjustup(HeapDataType* arr, int child)
+//{
+//	int parent = (child - 1) / 2;//计算父亲在数组中的下标
+//	while (child > 0)
+//	{
+//		if (arr[child] < arr[parent])//如果孩子小于双亲，那么说明不是我们需要创建堆的类型
+//		{
+//			Swap(&arr[child], &arr[parent]);//将子节点的值和双亲结点的值进行交换
+//			child = parent;//因为是从最后一个孩子位置开始进行的，所以要更新孩子看看之前的祖先结点是否不符合我们所需要创建堆的类型
+//			parent = (child - 1) / 2;//更新双亲结点
+//		}
+//		else//如果孩子大于等于双亲，说明当前的值符合我们所需要的堆的类型
+//			break;//退出
+//	}
+//}
+
 void Adjustup(HeapDataType* arr, int child)
 {
-	int parent = (child - 1) / 2;//计算父亲在数组中的下标
+	int parent = (child - 1) / 2;
 	while (child > 0)
 	{
-		if (arr[child] < arr[parent])//如果孩子小于双亲，那么说明不是我们需要创建堆的类型
-		{
-			Swap(&arr[child], &arr[parent]);//将子节点的值和双亲结点的值进行交换
-			child = parent;//因为是从最后一个孩子位置开始进行的，所以要更新孩子看看之前的祖先结点是否不符合我们所需要创建堆的类型
-			parent = (child - 1) / 2;//更新双亲结点
+		if (arr[child] < arr[parent])
+		{ 
+			Swap(&arr[child], &arr[parent]);
+			child = parent;
+			parent = (child - 1) / 2;
 		}
-		else//如果孩子大于等于双亲，说明当前的值符合我们所需要的堆的类型
-			break;//退出
+		else
+			break;
+	}
+}
+
+void Adjustdown(HeapDataType* arr, int n, int parent)
+{
+	int child = parent * 2 + 1;
+	while (child < n)
+	{
+		if (child + 1 < n && arr[child] > arr[child + 1])
+			child += 1;
+		if (arr[child] < arr[parent])
+		{
+			Swap(&arr[parent], &arr[child]);
+			parent = child;
+			child = parent * 2 + 1;
+		}
+		else
+			break;
 	}
 }
 
@@ -56,6 +90,27 @@ void HPPush(HP* php, HeapDataType x)
 	}
 	php->arr[php->size++] = x;//将x插入到当前下标位置（也就是尾插）
 	Adjustup(php->arr, php->size - 1);//进行向上调整算法
+}
+
+void HPPop(HP* php)
+{
+	assert(php);
+	assert(php->size > 0);
+	Swap(&php->arr[0], &php->arr[php->size - 1]);
+	--php->size;
+	Adjustdown(php->arr, php->size, 0);
+}
+
+HeapDataType HPTop(HP* php)
+{
+	assert(php);
+	assert(php->size > 0);
+	return php->arr[0];
+}
+
+bool HPEmpty(HP* php)
+{
+	return php->size == 0;
 }
 
 void HPPrintf(HP* php)
