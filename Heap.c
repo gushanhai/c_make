@@ -60,7 +60,7 @@ void Adjustdown(HeapDataType* arr, int n, int parent)
 	int child = parent * 2 + 1;
 	while (child < n)
 	{
-		if (child + 1 < n && arr[child] > arr[child + 1])
+		if (child + 1 < n && arr[child+1] < arr[child])
 			child += 1;
 		if (arr[child] < arr[parent])
 		{
@@ -106,6 +106,27 @@ HeapDataType HPTop(HP* php)
 	assert(php);
 	assert(php->size > 0);
 	return php->arr[0];
+}
+
+void HPInitArry(HP* php, int* arr, int n)
+{
+	assert(php);
+	assert(arr);
+	if (php->capacity == 0)
+	{
+		//说明当前堆没有进行分配空间
+		php->arr = (HeapDataType)malloc(sizeof(HeapDataType) * n);
+		if (php->arr == NULL)
+		{
+			perror("malloc fail");
+			exit(-1);
+		}
+	}
+	memcpy(php->arr, arr, sizeof(HeapDataType) * n);
+	for (int i = 1; i < n; i++)
+	{
+		Adjustup(php->arr, i);
+	}
 }
 
 bool HPEmpty(HP* php)

@@ -1,8 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #pragma once
 #include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 #include<stdbool.h>
+#include<time.h>
+#include<string.h>
 
 #define HeapDataType int
 
@@ -21,3 +24,6 @@ void Swap(HeapDataType* a1, HeapDataType* a2);//交换
 void HPPop(HP* php);
 HeapDataType HPTop(HP* php);
 bool HPEmpty(HP* php);//判空
+void Adjustdown(HeapDataType* arr, int n, int parent);//向下调整
+void Adjustup(HeapDataType* arr, int child);//向上调整
+void HPInitArry(HP* php, int* arr, int n);//将给定的数组进行初始化并且进行建堆
